@@ -18,6 +18,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User insert(User obj){
+        return userRepository.save(obj);
+    }
+
     public User findById(Long id){
        Optional<User> obj = userRepository.findById(id);
        return obj.get();
