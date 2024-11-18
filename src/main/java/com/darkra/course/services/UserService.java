@@ -2,6 +2,7 @@ package com.darkra.course.services;
 
 import com.darkra.course.entities.User;
 import com.darkra.course.repositories.UserRepository;
+import com.darkra.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class UserService {
 
     public User findById(Long id){
        Optional<User> obj = userRepository.findById(id);
-       return obj.get();
+       return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public void delete(Long id){
