@@ -6,14 +6,16 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+//class used to represent an entity of the database with the table "tb_product"
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //attribute used as the primary key of the entity
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //annotation defines this attribute as auto increment
     private Long id;
 
     private String name;
@@ -21,16 +23,17 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
+    //it maps the categories attribute with a relation "ManyToMany" with the Category Entity
     @ManyToMany
-    @JoinTable(name = "tb_product_category",
-            joinColumns = @JoinColumn(name = "product_id"),
-    inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "tb_product_category", //this creates a table that represents the ManyToMany relation
+            joinColumns = @JoinColumn(name = "product_id"), // Column referencing the Product entity
+    inverseJoinColumns = @JoinColumn(name = "category_id")) // Column referencing the Category entity
     private Set<Category> categories = new HashSet<>();;
 
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> items = new HashSet<>();
 
-
+    //constructors
     public Product(){
 
     }
@@ -43,6 +46,7 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
+    //getters and setters methods
     public Long getId() {
         return id;
     }
@@ -96,6 +100,7 @@ public class Product implements Serializable {
         return orders;
     }
 
+    //hashCode and equals methods
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

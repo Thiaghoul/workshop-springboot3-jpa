@@ -9,19 +9,23 @@ import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
+//class used as a multi value primary key for the OrderItem table
 @Embeddable
 public class OrderItemPk implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //It maps the order attribute as a foreign key with relation "ManyToOne"
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id") // defines the column in the table that will store the foreign key of the order
     private Order order;
 
+    //It maps the product attribute as a foreign key with relation "ManyToOne"
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id") // defines the column in the table that will store the foreign key of the product
     private Product product;
 
+    //The getters and setters methods
     public Order getOrder() {
         return order;
     }
@@ -38,6 +42,8 @@ public class OrderItemPk implements Serializable {
         this.product = product;
     }
 
+
+    //the hashCode and equals methods
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
