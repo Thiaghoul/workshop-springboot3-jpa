@@ -14,25 +14,31 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+//class responsible for the logic of the entity Product
 @Service
 public class ProductService {
 
+    //injection of the product repository to interact with database
     @Autowired
     private ProductRepository productRepository;
 
+    //retrieves all product from the database
     public List<Product> findAll(){
         return productRepository.findAll();
     }
 
+    //insert a new product into the database
     public Product insert(Product obj){
         return productRepository.save(obj);
     }
 
+    //retrieves a product by its id and throws an exception if not found
     public Product findById(Long id){
        Optional<Product> obj = productRepository.findById(id);
        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    //deletes a product by its id and throws an exception if not found
     public void delete(Long id){
         if(!productRepository.existsById(id)){
             throw new ResourceNotFoundException(id);
@@ -45,6 +51,7 @@ public class ProductService {
         }
     }
 
+    //updates an existent product by its id and throws an exception if not found
     public Product update(Long id, Product obj){
         try{
             Product entity = productRepository.getReferenceById(id);
@@ -57,6 +64,7 @@ public class ProductService {
         }
     }
 
+    //method to help update specific attribute of a product
     private void updateData(Product entity, Product obj){
         entity.setName(obj.getName());
         entity.setDescription(obj.getDescription());

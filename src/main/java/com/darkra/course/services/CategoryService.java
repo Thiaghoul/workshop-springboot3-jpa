@@ -14,25 +14,31 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+//class responsible for the logic of the entity Category
 @Service
 public class CategoryService {
 
+    //injection of the category repository to interact with the database
     @Autowired
     private CategoryRepository categoryRepository;
 
+    //retrieves all categories from the database
     public List<Category> findAll(){
         return categoryRepository.findAll();
     }
 
+    //inserts a new category into the database
     public Category insert(Category obj){
         return categoryRepository.save(obj);
     }
 
+    //retrieve a specified category by its id and throws an exception if not found
     public Category findById(Long id){
        Optional<Category> obj = categoryRepository.findById(id);
        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    //deletes an existent category if id given is found, throws an exception if not found
     public void delete(Long id){
         if(!categoryRepository.existsById(id)){
             throw new ResourceNotFoundException(id);
@@ -45,6 +51,7 @@ public class CategoryService {
         }
     }
 
+    //updates an existing category by its id and throws an exception if not found
     public Category update(Long id, Category obj){
         try{
             Category entity = categoryRepository.getReferenceById(id);
@@ -56,6 +63,7 @@ public class CategoryService {
         }
     }
 
+    //method to help update specific attribute of a category
     public void updateData(Category entity, Category obj){
         entity.setName(obj.getName());
     }
