@@ -12,25 +12,30 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@RestController
-@RequestMapping(value = "/categories")
+//controller responsible for handling HTTP requests related to category
+@RestController //annotation defines that this is a REST controller
+@RequestMapping(value = "/categories") //base URL mapping for all endpoints in this controller
 public class CategoryResource {
 
+    //injection for the service layer handling category-related operations
     @Autowired
     private CategoryService categoryService;
 
+    //endpoint that retrieves all categories
     @GetMapping
     public ResponseEntity<List<Category>> findAll(){
         List<Category> list = categoryService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
+    //endpoint that retrieve a category by its id
     @GetMapping(value = "/{id}")
     public ResponseEntity<Category> findById(@PathVariable Long id){
         Category obj = categoryService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
+    //endpoint that inserts a new category
     @PostMapping
     public ResponseEntity<Category> insert(@RequestBody Category obj){
         obj = categoryService.insert(obj);
@@ -38,12 +43,14 @@ public class CategoryResource {
         return ResponseEntity.created(uri).body(obj);
     }
 
+    //endpoint that deletes a category by its id
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    //endpoint to update a category by its id
     @PutMapping(value = "/{id}")
     public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category obj){
         obj = categoryService.update(id, obj);

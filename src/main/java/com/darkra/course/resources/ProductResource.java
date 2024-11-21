@@ -14,27 +14,30 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@RestController
-@RequestMapping(value = "/products")
+//controller responsible for handling HTTP requests related to product
+@RestController //annotation defines that this is a REST controller
+@RequestMapping(value = "/products") //base URL mapping for all endpoints
 public class ProductResource {
 
+    //injection for the service layer handling product-related operations
     @Autowired
     private ProductService productService;
-    @Autowired
-    private UserService userService;
 
+    //endpoint that retrieves all products
     @GetMapping
     public ResponseEntity<List<Product>> findAll(){
         List<Product> list = productService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
+    //endpoint that retrieves a product by its id
     @GetMapping(value = "/{id}")
     public ResponseEntity<Product> findById(@PathVariable Long id){
         Product obj = productService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
+   //endpoint that inserts a new product
     @PostMapping
     public ResponseEntity<Product> insert(@RequestBody Product obj){
         obj = productService.insert(obj);
@@ -42,12 +45,14 @@ public class ProductResource {
         return ResponseEntity.created(uri).body(obj);
     }
 
+    //endpoint that deletes a product by its id
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         productService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    //endpoint that updates a product by its id
     @PutMapping(value = "/{id}")
     public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product obj){
         obj = productService.update(id, obj);
