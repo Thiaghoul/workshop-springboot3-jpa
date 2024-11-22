@@ -67,6 +67,10 @@ RESTful API to manage a sales system, including products, categories, orders, us
 - Classes for centralized error handling and clear messages to the client.
 
 ---
+## **Entities Relation**
+
+insert image here
+---
 
 ## **Endpoints**
 
@@ -165,3 +169,6 @@ RESTful API to manage a sales system, including products, categories, orders, us
 
 ---
 
+## **Author**
+
+Developed by Thiago Henriques Nunes
