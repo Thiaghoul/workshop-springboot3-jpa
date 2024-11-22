@@ -135,6 +135,26 @@ RESTful API to manage a sales system, including products, categories, orders, us
 
 ## **Request Example**
 
+### Create a Category
+
+**Endpoint:**  
+`POST /categories`
+
+**Body:**  
+```json
+{
+    "name" : "Food and vegetables"
+}
+```
+
+**Response:**  
+```json
+{
+    "id": 5,
+    "name": "Food and vegetables"
+}
+
+```
 ### Create a Product
 
 **Endpoint:**  
@@ -143,29 +163,36 @@ RESTful API to manage a sales system, including products, categories, orders, us
 **Body:**  
 ```json
 {
-  "name": "Notebook",
-  "price": 2500.0,
-  "categories": [1, 2]
+    "name": "ram memory",
+    "description": "a common computing acronym that stands for random-access memory.",
+    "price": 90.5,
+    "imgUrl": "",
+    "categories": [
+        {
+            "id": 1,
+            "name" : "Eletronics"
+
+        }
+    ]
 }
 ```
 
 **Response:**  
 ```json
 {
-  "id": 1,
-  "name": "Notebook",
-  "price": 2500.0,
-  "categories": [
-    {
-      "id": 1,
-      "name": "Electronics"
-    },
-    {
-      "id": 2,
-      "name": "Informatics"
-    }
-  ]
+    "id": 9,
+    "name": "ram memory",
+    "description": "a common computing acronym that stands for random-access memory.",
+    "price": 90.5,
+    "imgUrl": "",
+    "categories": [
+        {
+            "id": 1,
+            "name": "Eletronics"
+        }
+    ]
 }
+
 ```
 
 ---
